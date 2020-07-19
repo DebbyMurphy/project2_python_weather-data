@@ -55,7 +55,6 @@ def calculate_mean(total, num_items):
     mean = (total/num_items)
     return round(mean, 1)
 
-
 def process_weather(forecast_file):
     """Converts raw weather data into meaningful text.
 
@@ -84,6 +83,7 @@ def process_weather(forecast_file):
         date_list.append(convert_date(day["Date"]))
         # print(date_list)
 
+        # max_list.append(convert_date(day["Date"]))
         max_list.append(convert_f_to_c(day["Temperature"]["Maximum"]["Value"]))
         # print(max_list)
 
@@ -105,51 +105,42 @@ def process_weather(forecast_file):
 
     weather_list = []
 
-    weather_list.append(date_list)  #weather_list[0][<position of that list here>]
-    weather_list.append(min_list)   #weather_list[1][<position of that list here>]
-    weather_list.append(max_list)   #weather_list[2][<position of that list here>]
-    weather_list.append(day_longphrase_list)        #weather_list[3][<position of that list here>]
-    weather_list.append(day_chanceofrain_list)      #weather_list[4][<position of that list here>]
-    weather_list.append(night_longphrase_list)      #weather_list[5][<position of that list here>]
-    weather_list.append(night_chanceofrain_list)    #weather_list[6][<position of that list here>]
-    
-    print(weather_list)
-
-# -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    weather_list.append(date_list)  #weather_list[0][<position of day here>]
+    weather_list.append(min_list)   #weather_list[1][<position of day here>]
+    weather_list.append(max_list)   #weather_list[2][<position of day here>]
+    weather_list.append(day_longphrase_list)        #weather_list[3][<position of day here>]
+    weather_list.append(day_chanceofrain_list)      #weather_list[4][<position of day here>]
+    weather_list.append(night_longphrase_list)      #weather_list[5][<position of day here>]
+    weather_list.append(night_chanceofrain_list)    #weather_list[6][<position of day here>]
 
 # daytime / nightime > initialised the two variables and used them as lists
 
-    print()
-
     # calculate min, max, mean & update lists
-    lowest_temp = format_temperature(min(min_list))
-    # print(f"This is the lowest temp print out: {lowest_temp}")
+    lowest_temp = min(min_list)
+    index_min = min_list.index(lowest_temp)
     
-    highest_temp = format_temperature(max(max_list))
-    # print(f"This is the highest temp print out: {highest_temp}")
+    highest_temp = max(max_list)
+    index_max = max_list.index(highest_temp)
     
     total = sum(min_list)
     num_items = len(min_list)
-    mean_min = format_temperature(convert_f_to_c(calculate_mean(total, num_items)))
-    # print(f"This is the mean min print out: {mean_min}")
+    mean_min = convert_f_to_c(calculate_mean(total, num_items))
 
     total = sum(max_list)
     num_items = len(max_list)
-    mean_max = format_temperature(convert_f_to_c(calculate_mean(total, num_items)))
-    # print(f"This is the mean max print out: {mean_max}")
+    mean_max = convert_f_to_c(calculate_mean(total, num_items))
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     print()
     # format output into print statements to start
 
-    print("5 Day Overview")
-    print()
-    print(f"    The lowest temperature will be {lowest_temp}, and will occur on <INSERT DATE WITH FUNCTION / FOR LOOP>.\n")
-    print(f"    The highest temperature will be {highest_temp}, and will occur on <INSERT DATE WITH FUNCTION / FOR LOOP>.\n")
+    print("5 Day Overview\n")
+    print(f"    The lowest temperature will be {format_temperature(lowest_temp)}, and will occur on {date_list[index_min]}.\n")
+    print(f"    The highest temperature will be {format_temperature(highest_temp)}, and will occur on {date_list[index_max]}.\n")
     print(f"    The average low this week is {mean_min}.\n")
     print(f"    The average high this week is {mean_max}.\n\n\n")
     
-    # add while loops for the day by day summaries. 
+    # add while/for loop for the day by day summaries. 
 
     for lists in weather_list:
         print(f"-------- {weather_list[0][0]} --------\n")
@@ -187,18 +178,7 @@ def process_weather(forecast_file):
         print(f"    Chance of rain: {weather_list[4][4]}%\n")
         print(f"Nighttime: {weather_list[5][4]}\n")
         print(f"    Chance of rain: {weather_list[6][4]}%\n\n")
-        print(f"-------- {weather_list[0][5]} --------\n")
-        print(f"Minimum Temperature: {format_temperature(weather_list[1][5])}\n")
-        print(f"Maximum Temperature: {format_temperature(weather_list[2][5])}\n")
-        print(f"Daytime: {weather_list[3][5]}\n")
-        print(f"    Chance of rain: {weather_list[4][5]}%\n")
-        print(f"Nighttime: {weather_list[5][5]}\n")
-        print(f"    Chance of rain: {weather_list[6][5]}%\n\n")
         
-        
-        
-
-    # create one For Loop for each day. 
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     # now, format output message into a string
