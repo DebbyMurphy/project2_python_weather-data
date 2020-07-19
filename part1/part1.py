@@ -78,13 +78,10 @@ def process_weather(forecast_file):
     day_chanceofrain_list = []
     night_longphrase_list = []
     night_chanceofrain_list = []
-
-    weather_list = []
     
     for day in json_data['DailyForecasts']:
        
         date_list.append(convert_date(day["Date"]))
-        # date_list.append(day['key']['for']['date'])
         # print(date_list)
 
         max_list.append(convert_f_to_c(day["Temperature"]["Maximum"]["Value"]))
@@ -95,13 +92,28 @@ def process_weather(forecast_file):
         
         day_longphrase_list.append((day["Day"]["LongPhrase"]))
         # print(day_longphrase_list)
-        
+
+        day_chanceofrain_list.append((day["Day"]["RainProbability"]))
+        # print(day_chanceofrain_list)
+      
         night_longphrase_list.append((day["Night"]["LongPhrase"]))
         # print(night_longphrase_list)
 
-        # weather_list.append(date_list, min_list, max_list)
-        # print(weather_list)
+        night_chanceofrain_list.append((day["Night"]["RainProbability"]))
+        # print(night_chanceofrain_list)
 
+
+    weather_list = []
+
+    weather_list.append(date_list)  #weather_list[0][<position of that list here>]
+    weather_list.append(min_list)   #weather_list[1][<position of that list here>]
+    weather_list.append(max_list)   #weather_list[2][<position of that list here>]
+    weather_list.append(day_longphrase_list)        #weather_list[3][<position of that list here>]
+    weather_list.append(day_chanceofrain_list)      #weather_list[4][<position of that list here>]
+    weather_list.append(night_longphrase_list)      #weather_list[5][<position of that list here>]
+    weather_list.append(night_chanceofrain_list)    #weather_list[6][<position of that list here>]
+    
+    print(weather_list)
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -136,28 +148,22 @@ def process_weather(forecast_file):
     print(f"    The highest temperature will be {highest_temp}, and will occur on <INSERT DATE WITH FUNCTION / FOR LOOP>.\n")
     print(f"    The average low this week is {mean_min}.\n")
     print(f"    The average high this week is {mean_max}.\n\n\n")
-    print("test string")
+    
     # add while loops for the day by day summaries. 
 
+    for lists in weather_list:
+        print(f"-------- {weather_list[0][0]} --------\n")
+        print(f"Minimum Temperature: {format_temperature(weather_list[1][0])}\n")
 
-
-    for day in json_data['DailyForecasts']:
-       
-        date_list.append(convert_date(day["Date"]))
-        # date_list.append(day['key']['for']['date'])
-        # print(date_list)
-
-        max_list.append(convert_f_to_c(day["Temperature"]["Maximum"]["Value"]))
-        # print(max_list)
-
+    # create one For Loop for each day. 
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     # now, format output message into a string
-    output = """
-    output goes here
-    """
+        output = """
+        output goes here
+        """
 
-    return output
+        return output
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
