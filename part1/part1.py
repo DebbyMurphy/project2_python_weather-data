@@ -5,8 +5,6 @@ DEGREE_SYBMOL = u"\N{DEGREE SIGN}C"
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# define functions that can be called on 
-
 def format_temperature(temp):
     """Takes a temperature and returns it in string format with the degrees and celcius symbols.
     
@@ -107,61 +105,40 @@ def process_weather(forecast_file):
     
     total = sum(min_list)
     num_items = len(min_list)
-    mean_min = convert_f_to_c(calculate_mean(total, num_items))
+    mean_min = calculate_mean(total, num_items)
 
     total = sum(max_list)
     num_items = len(max_list)
-    mean_max = convert_f_to_c(calculate_mean(total, num_items))
+    mean_max = calculate_mean(total, num_items)
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    # format output into print statements to start
-
+    # define the number of days in the source file
     num_days = len(date_list)
     
-    # print(f"{num_days} Day Overview\n")
-    # print(f"    The lowest temperature will be {format_temperature(lowest_temp)}, and will occur on {date_list[index_min]}.\n")
-    # print(f"    The highest temperature will be {format_temperature(highest_temp)}, and will occur on {date_list[index_max]}.\n")
-    # print(f"    The average low this week is {mean_min}.\n")
-    # print(f"    The average high this week is {mean_max}.\n\n\n")
-    
-    # # day by day summaries. 
-
-    # for index in range(num_days):
-    #     print(f"-------- {weather_list[0][index]} --------\n")
-    #     print(f"Minimum Temperature: {format_temperature(weather_list[1][index])}\n")
-    #     print(f"Maximum Temperature: {format_temperature(weather_list[2][index])}\n")
-    #     print(f"Daytime: {weather_list[3][index]}\n")
-    #     print(f"    Chance of rain: {weather_list[4][index]}%\n")
-    #     print(f"Nighttime: {weather_list[5][index]}\n")
-    #     print(f"    Chance of rain: {weather_list[6][index]}%\n\n")
-        
-
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    # now, format output message into a string
+    # String Output Message
     output = ""
-    output += (f"{num_days} Day Overview\n")
-    output += (f"    The lowest temperature will be {format_temperature(lowest_temp)}, and will occur on {date_list[index_min]}.\n")
-    output += (f"    The highest temperature will be {format_temperature(highest_temp)}, and will occur on {date_list[index_max]}.\n")
-    output += (f"    The average low this week is {mean_min}.\n")
-    output += (f"    The average high this week is {mean_max}.\n\n\n")
+    output += f"{num_days} Day Overview\n"
+    output += f"    The lowest temperature will be {format_temperature(lowest_temp)}, and will occur on {date_list[index_min]}.\n"
+    output += f"    The highest temperature will be {format_temperature(highest_temp)}, and will occur on {date_list[index_max]}.\n"
+    output += f"    The average low this week is {format_temperature(mean_min)}.\n"
+    output += f"    The average high this week is {format_temperature(mean_max)}.\n\n"
     
-    # day by day summaries. 
-
+    # Day by day summaries. 
     for index in range(num_days):
-        output += (f"-------- {weather_list[0][index]} --------\n")
-        output += (f"Minimum Temperature: {format_temperature(weather_list[1][index])}\n")
-        output += (f"Maximum Temperature: {format_temperature(weather_list[2][index])}\n")
-        output += (f"Daytime: {weather_list[3][index]}\n")
-        output += (f"    Chance of rain:  {weather_list[4][index]}%\n")
-        output += (f"Nighttime: {weather_list[5][index]}\n")
-        output += (f"    Chance of rain:  {weather_list[6][index]}%\n\n")
-
-        
-    #     output += (f"5 Day Overview\n    The lowest temperature will be {format_temperature(lowest_temp)}, and will occur on {date_list[index_min]}.\n")
+        output += f"-------- {weather_list[0][index]} --------\n"
+        output += f"Minimum Temperature: {format_temperature(weather_list[1][index])}\n"
+        output += f"Maximum Temperature: {format_temperature(weather_list[2][index])}\n"
+        output += f"Daytime: {weather_list[3][index]}\n"
+        output += f"    Chance of rain:  {weather_list[4][index]}%\n"
+        output += f"Nighttime: {weather_list[5][index]}\n"
+        output += f"    Chance of rain:  {weather_list[6][index]}%\n\n"
 
     return output
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    print(process_weather("data/forecast_5days_a.json"))
+    print(process_weather("data/forecast_5days_a.json"))    
+    # print(process_weather("data/forecast_5days_b.json"))
+    # print(process_weather("data/forecast_10days.json"))
     print()
